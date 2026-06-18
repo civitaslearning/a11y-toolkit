@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  mcp-accessibility:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mcp-accessibility:latest
+    container_name: mcp-accessibility-server
+    
+    # Volume for reports
+    volumes:
+      - ./reports:/app/reports
+    
+    # For development, you can also mount your source code
+    # Uncomment the following lines for development mode:
+    #   - ./src:/app/src:ro
+    #   - ./dist:/app/dist
+    
+    # Environment variables
+    environment:
+      - NODE_ENV=production
+      - ENABLE_VNC=true  # Set to true to enable browser viewing
+      # Add any other environment variables your MCP server needs
+      
+    # Since MCP uses stdio, we need to keep stdin open and allocate a TTY
+    stdin_open: true
+    tty: true
+    
+    # Ports for VNC access (uncomment when ENABLE_VNC=true)
+    ports:
+      - "6080:6080"  # noVNC web interface
+      - "5900:5900"  # VNC protocol
+    
+    # Resource limits (adjust as needed)
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '2'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Network mode - use host network if you need to access local services
+    # network_mode: host
+    
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+    
+    # Read-only root filesystem for security (optional)
+    # read_only: true
+    # tmpfs:
+    #   - /tmp
+    #   - /home/mcp/.cache
+
+  # Optional: Development version with hot reload
+  mcp-accessibility-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: mcp-accessibility:dev
+    container_name: mcp-accessibility-dev
+    volumes:
+      - ./src:/app/src
+      - ./package.json:/app/package.json:ro
+      - ./tsconfig.json:/app/tsconfig.json:ro
+      # Exclude node_modules to use container's dependencies
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    stdin_open: true
+    tty: true
+    command: npm run dev
+    profiles:
+      - dev

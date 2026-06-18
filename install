@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# ABOUTME: Installs the accessibility skills + MCP server into a target project.
+# ABOUTME: Symlinks each skill into .claude/skills and wires the MCP server into .mcp.json.
+set -euo pipefail
+
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TARGET="${1:-}"
+
+if [ -z "$TARGET" ]; then
+  echo "Usage: ./install /path/to/your/project [--force]"
+  exit 1
+fi
+FORCE=""
+[ "${2:-}" = "--force" ] && FORCE="1"
+
+TARGET="$(cd "$TARGET" && pwd)"
+MCP_ENTRY="$REPO_DIR/mcp/dist/index.js"
+
+# 1. Build the MCP server if it hasn't been built yet.
+if [ ! -f "$MCP_ENTRY" ]; then
+  echo "Building MCP server (first run)..."
+  (cd "$REPO_DIR/mcp" && npm install && npm run build)
+fi
+
+# 2. Symlink each skill into the target's .claude/skills.
+mkdir -p "$TARGET/.claude/skills"
+for skill in "$REPO_DIR"/skills/*/; do
+  name="$(basename "$skill")"
+  dest="$TARGET/.claude/skills/$name"
+  if [ -e "$dest" ] && [ -z "$FORCE" ]; then
+    echo "skip   $name (exists; use --force to overwrite)"
+    continue
+  fi
+  rm -rf "$dest"
+  ln -s "$skill" "$dest"
+  echo "linked $name"
+done
+
+# 3. Wire the MCP server into the target's .mcp.json (absolute path).
+MCP_JSON="$TARGET/.mcp.json"
+if command -v jq >/dev/null 2>&1; then
+  [ -f "$MCP_JSON" ] || echo '{"mcpServers":{}}' > "$MCP_JSON"
+  tmp="$(mktemp)"
+  jq --arg p "$MCP_ENTRY" \
+    '.mcpServers["mcp-accessibility"] = {"type":"stdio","command":"node","args":[$p]}' \
+    "$MCP_JSON" > "$tmp" && mv "$tmp" "$MCP_JSON"
+  echo "wired  mcp-accessibility into .mcp.json"
+else
+  echo
+  echo "jq not found — add this to $MCP_JSON manually:"
+  echo "  \"mcp-accessibility\": { \"type\": \"stdio\", \"command\": \"node\", \"args\": [\"$MCP_ENTRY\"] }"
+fi
+
+# 4. Seed .env from the template if the project doesn't have one.
+if [ ! -f "$TARGET/.env" ]; then
+  cp "$REPO_DIR/.env.example" "$TARGET/.env"
+  echo "created .env from template (edit as needed)"
+fi
+
+echo "Done."

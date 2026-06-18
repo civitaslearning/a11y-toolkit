@@ -1,0 +1,69 @@
+{
+  "name": "mcp-accessibility",
+  "version": "1.0.0",
+  "description": "MCP server for AI-powered accessibility testing",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-accessibility": "./bin/run.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/civitaslearning/a11y-toolkit.git"
+  },
+  "homepage": "https://github.com/civitaslearning/a11y-toolkit#readme",
+  "bugs": {
+    "url": "https://github.com/civitaslearning/a11y-toolkit/issues"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "wcag",
+    "mcp",
+    "model-context-protocol",
+    "playwright",
+    "axe-core",
+    "screen-reader",
+    "testing",
+    "claude",
+    "ai"
+  ],
+  "author": "Civitas Learning",
+  "license": "MIT",
+  "files": [
+    "src",
+    "bin",
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "prepare": "npm run build",
+    "postinstall": "playwright install chromium --with-deps || playwright install chromium",
+    "prepublishOnly": "echo 'This package ships inside the accessibility toolkit repo; build locally with: npm run build' && exit 1",
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "test": "tsx src/test.ts",
+    "docker:build": "docker build -t mcp-accessibility:latest . && docker tag mcp-accessibility:latest mcp-accessibility:fixed",
+    "docker:build:dev": "docker build -f Dockerfile.dev -t mcp-accessibility:dev .",
+    "docker:run": "docker run -it --rm -e ENABLE_VNC=false mcp-accessibility:fixed",
+    "docker:run:vnc": "docker run -it --rm -e ENABLE_VNC=true -p 6080:6080 -p 5900:5900 mcp-accessibility:fixed",
+    "docker:run:dev": "docker compose --profile dev up",
+    "docker:push": "docker push mcp-accessibility:latest",
+    "docker:compose:up": "docker compose up -d",
+    "docker:compose:down": "docker compose down",
+    "docker:compose:logs": "docker compose logs -f"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.8.0",
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "playwright": "^1.40.0",
+    "tsx": "^4.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.9.2"
+  }
+}

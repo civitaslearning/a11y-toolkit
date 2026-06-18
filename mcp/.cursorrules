@@ -1,0 +1,295 @@
+# MCP Accessibility Testing - Cursor Integration
+
+This MCP server provides 64 comprehensive accessibility testing tools for WCAG 2.1 compliance testing.
+
+## 🔨 Available Tool Categories
+
+### Browser Control (8 tools)
+- `open_browser` - Launch browser
+- `navigate` - Navigate to URL
+- `click` - Click elements
+- `fill` - Fill form inputs
+- `login` - Automated login
+- `screenshot` - Capture screenshots
+- `close_browser` - Close browser
+- `wait` - Wait for conditions
+
+### Core Accessibility Testing (23 tools)
+- `analyze_accessibility` - Full WCAG audit with axe-core
+- `get_accessibility_tree` - Inspect accessibility tree
+- `simulate_screen_reader` - Simulate NVDA/JAWS/VoiceOver
+- `test_keyboard_navigation` - Test keyboard accessibility
+- `validate_aria_attributes` - Check ARIA usage
+- `get_landmarks` - Find ARIA landmarks
+- `test_form_labels` - Validate form accessibility
+- `test_heading_structure` - Check heading hierarchy
+- `test_skip_links` - Validate skip navigation
+- `test_live_regions` - Test dynamic content
+- `get_focus_order` - Map tab order
+- `test_focus_trap` - Detect focus traps
+- `test_tab_order` - Verify tab sequence
+- `get_announcements` - Capture screen reader announcements
+- `get_semantic_structure` - Analyze semantic HTML
+- `get_accessible_name` - Get accessible names
+- Plus element discovery and inspection tools
+
+### Platform-Specific Testing (10 tools)
+Test cross-platform screen reader compatibility:
+- `test_screen_reader_modes` - Browse/Forms/Application modes
+- `test_platform_aria_support` - Compare ARIA across platforms
+- `test_high_contrast` - Windows/Mac contrast modes
+- `test_table_navigation` - Platform table patterns
+- `test_verbosity_levels` - Screen reader verbosity
+- `test_quick_navigation` - Single-letter navigation (H, B, F, T)
+- `test_virtual_buffer` - Windows virtual cursor
+- `test_rotor_navigation` - VoiceOver rotor (VO+U)
+- `get_platform_announcements` - Platform-specific announcements
+- `test_math_content` - Mathematical content (MathML/LaTeX)
+
+### Widget Keyboard Testing (13 tools)
+Test ARIA Authoring Practices Guide (APG) patterns:
+- `test_tabs_widget` - Tabs pattern (arrow keys, auto-activation)
+- `test_accordion_widget` - Accordion (Enter/Space, arrows)
+- `test_combobox_widget` - Combobox (Alt+Down, Escape)
+- `test_slider_widget` - Slider (arrows, Home/End, Page Up/Down)
+- `test_menu_widget` - Menu/menubar (arrows, Enter, Escape)
+- `test_listbox_widget` - Listbox (arrows, multi-select)
+- `test_radio_group_widget` - Radio group (arrows with auto-check)
+- `test_tree_widget` - Tree (arrows, Enter, *, expand/collapse)
+- `test_modal_dialog_widget` - Modal (focus trap, Escape, initial focus)
+- `test_date_picker_widget` - Date picker (calendar navigation)
+- `test_data_table_widget` - Data table/grid (sorting, filtering)
+- `test_carousel_widget` - Carousel (arrows, pause, auto-rotate)
+- `test_toolbar_widget` - Toolbar (arrows, Home/End, Tab)
+
+### Visual & Responsive Testing (10 tools)
+Test WCAG 2.1 visual criteria:
+- `test_focus_visibility` - Focus indicators (3:1 contrast, 2px size) - WCAG 2.4.7, 2.4.13
+- `test_hover_focus_dismissal` - Hover content (hoverable, dismissible) - WCAG 1.4.13
+- `test_reflow` - Content reflow (320px, no horizontal scroll) - WCAG 1.4.10
+- `test_text_resize` - Text at 200% zoom (no content loss) - WCAG 1.4.4
+- `test_text_spacing` - Text spacing (line-height, letter/word spacing) - WCAG 1.4.12
+- `test_auto_refresh` - Auto-refresh/redirects - WCAG 2.1 Success Criterion 2.2.1 (Timing Adjustable) - Level A
+- `test_animation_control` - Animation controls (pause, stop, hide) - WCAG 2.1 Success Criteria 2.2.2 (Pause, Stop, Hide) - Level A, and 2.3.3 (Animation from Interactions) - Level AAA
+- `test_error_messages` - Error accessibility (visible, announced) - WCAG 3.3.1, 4.1.3
+- `test_required_fields` - Required indicators (aria-required) - WCAG 3.3.2
+- `test_orientation_lock` - Orientation support (portrait/landscape) - WCAG 1.3.4
+
+## 🚀 Recommended Testing Workflow
+
+### Quick WCAG Scan
+```
+1. open_browser
+2. navigate to [URL]
+3. analyze_accessibility - Get full WCAG 2.1 AA report
+4. screenshot - Capture evidence
+5. close_browser
+```
+
+### Comprehensive Testing
+```
+1. open_browser
+2. navigate to [URL]
+3. analyze_accessibility - Axe-core scan
+4. test_keyboard_navigation - Tab through page
+5. get_focus_order - Verify focus sequence
+6. test_heading_structure - Check heading hierarchy
+7. validate_aria_attributes - Verify ARIA usage
+8. test_form_labels - Check form accessibility
+9. get_landmarks - Find page regions
+10. screenshot
+11. close_browser
+```
+
+### Platform-Specific Testing (Mac VoiceOver)
+```
+1. open_browser
+2. navigate to [URL]
+3. test_screen_reader_modes - Test Browse/Forms/Application modes
+4. test_rotor_navigation - Test VoiceOver rotor
+5. test_high_contrast - Test Mac Increase Contrast
+6. get_platform_announcements - Get VoiceOver announcements
+7. test_math_content - Test math content (if applicable)
+8. close_browser
+```
+
+### Platform-Specific Testing (Windows JAWS/NVDA)
+```
+1. open_browser
+2. navigate to [URL]
+3. test_screen_reader_modes - Test Browse/Forms modes
+4. test_virtual_buffer - Test virtual cursor
+5. test_quick_navigation - Test single-letter nav (H, B, F, T)
+6. test_high_contrast - Test Windows High Contrast
+7. test_verbosity_levels - Test verbosity settings
+8. close_browser
+```
+
+### Widget Testing
+For pages with ARIA widgets (tabs, accordions, menus, etc.):
+```
+1. open_browser
+2. navigate to [URL]
+3. test_tabs_widget - If page has tabs
+4. test_accordion_widget - If page has accordions
+5. test_combobox_widget - If page has comboboxes/dropdowns
+6. test_menu_widget - If page has menus
+7. test_modal_dialog_widget - If page has modals
+8. test_date_picker_widget - If page has date pickers
+9. close_browser
+```
+
+### Visual/Responsive Testing
+For WCAG 2.1 Level AA compliance:
+```
+1. open_browser
+2. navigate to [URL]
+3. test_focus_visibility - Check focus indicators
+4. test_reflow - Test at 320px width
+5. test_text_resize - Test at 200% zoom
+6. test_text_spacing - Test increased spacing
+7. test_orientation_lock - Test portrait/landscape
+8. test_animation_control - Check animation controls
+9. test_error_messages - Verify error accessibility
+10. test_required_fields - Check required field indicators
+11. close_browser
+```
+
+## 📝 Best Practices
+
+### Always Test in Sequence
+1. **Start with automated scan**: `analyze_accessibility` gives comprehensive WCAG report
+2. **Test keyboard navigation**: Verify keyboard-only users can access everything
+3. **Test screen reader compatibility**: Use platform-specific tools
+4. **Test visual criteria**: Focus visibility, reflow, text resize
+5. **Test widgets**: Use specific widget tests for ARIA components
+
+### When to Use Which Tools
+
+**Use `analyze_accessibility` when:**
+- You need a comprehensive WCAG 2.1 AA audit
+- Starting a new accessibility review
+- Need detailed violation reports with WCAG references
+
+**Use `simulate_screen_reader` when:**
+- You want to see what screen reader users hear
+- Testing specific element announcements
+- Verifying ARIA labels and descriptions
+
+**Use widget-specific tools when:**
+- Page has ARIA widgets (tabs, accordions, menus, etc.)
+- Need to verify keyboard patterns match APG
+- Testing complex interactive components
+
+**Use platform-specific tools when:**
+- Testing cross-platform compatibility
+- Need to verify behavior on specific screen readers (JAWS, NVDA, VoiceOver)
+- Testing platform-specific features (virtual buffer, rotor)
+
+**Use visual/responsive tools when:**
+- Testing WCAG 2.1 Level AA compliance
+- Verifying focus indicators, reflow, text spacing
+- Testing responsive design accessibility
+
+### Persistent Browser Sessions
+
+If you need to test authenticated pages, use persistent Chrome profiles:
+
+1. Set environment variable before starting:
+   ```bash
+   export CHROME_USER_DATA_DIR="$HOME/.chrome-profiles/mcp-accessibility"
+   ```
+
+2. Or configure in Claude Desktop/Cursor MCP settings:
+   ```json
+   {
+     "mcpServers": {
+       "mcp-accessibility": {
+         "command": "node",
+         "args": ["./mcp/dist/index.js"],
+         "env": {
+           "CHROME_USER_DATA_DIR": "/Users/yourname/.chrome-profiles/mcp-accessibility"
+         }
+       }
+     }
+   }
+   ```
+
+3. Log in once manually, session persists across tests
+
+## 🎯 Common Testing Scenarios
+
+### Scenario 1: New Feature Accessibility Review
+Run comprehensive test suite:
+- Automated WCAG scan
+- Keyboard navigation
+- Screen reader simulation
+- Widget testing (if applicable)
+- Visual/responsive testing
+- Take screenshots for documentation
+
+### Scenario 2: Bug Fix Verification
+Focus on specific area:
+- Test the specific component/page
+- Run relevant widget tests
+- Verify ARIA attributes
+- Test keyboard navigation for that component
+- Screenshot before/after
+
+### Scenario 3: Cross-Platform Compatibility
+Test on multiple platforms:
+- Mac VoiceOver specific tests
+- Windows JAWS/NVDA specific tests
+- Compare platform announcements
+- Test high contrast on both platforms
+
+### Scenario 4: WCAG 2.1 Compliance Audit
+Run full visual/responsive suite:
+- Focus visibility
+- Reflow at 320px
+- Text resize at 200%
+- Text spacing customization
+- Orientation support
+- Animation controls
+- Error message accessibility
+
+## 🔍 Understanding Tool Output
+
+All tools return structured results with:
+- **Summary**: High-level overview of findings
+- **Issues**: Detailed list of accessibility problems
+- **WCAG References**: Which success criteria are affected
+- **Recommendations**: How to fix the issues
+- **Code Examples**: Where available
+
+## ⚠️ Important Notes
+
+- Always `open_browser` before testing
+- Always `close_browser` when done to free resources
+- Use `screenshot` to capture evidence
+- Test one page thoroughly rather than many pages superficially
+- Focus on high-severity issues first (Critical, Serious)
+- Verify fixes don't introduce new accessibility issues
+
+## 🆘 Troubleshooting
+
+**Browser won't start:**
+- Check if Playwright is installed: `npx playwright install chromium`
+- Verify MCP server is running
+
+**Tools timing out:**
+- Complex pages may take longer to analyze
+- Wait for page to fully load before testing
+- Use `wait` tool if needed
+
+**Persistent session not working:**
+- Verify CHROME_USER_DATA_DIR path is correct
+- Ensure directory has write permissions
+- Log in again manually if session expired
+
+## 📚 Additional Resources
+
+- Full documentation: README.md
+- Testing guide: TESTING.md
+- WCAG 2.1: https://www.w3.org/WAI/WCAG21/quickref/
+- ARIA Authoring Practices: https://www.w3.org/WAI/ARIA/apg/

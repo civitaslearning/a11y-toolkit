@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "mcp-accessibility": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["./mcp/dist/index.js"]
+    }
+  }
+}
