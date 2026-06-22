@@ -21,7 +21,7 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
   "mcpServers": {
     "accessibility": {
       "command": "node",
-      "args": ["/Users/mudassir-khan/repo/mcp-a11y/dist/index.js"]
+      "args": ["/path/to/a11y-toolkit/mcp/dist/index.js"]
     }
   }
 }
@@ -91,7 +91,7 @@ Create/edit `~/.cursor/mcp-config.json`:
   "servers": {
     "accessibility": {
       "command": "node",
-      "args": ["/Users/mudassir-khan/repo/mcp-a11y/dist/index.js"]
+      "args": ["/path/to/a11y-toolkit/mcp/dist/index.js"]
     }
   }
 }
@@ -144,10 +144,10 @@ See `.cursor/commands/` directory for detailed documentation of each command.
 
 ```bash
 # Create test directory
-mkdir -p /Users/mudassir-khan/repo/mcp-a11y/test
+mkdir -p /path/to/a11y-toolkit/mcp/test
 
 # Create a test script
-cat > /Users/mudassir-khan/repo/mcp-a11y/test/test-mcp.js << 'EOF'
+cat > /path/to/a11y-toolkit/mcp/test/test-mcp.js << 'EOF'
 const { spawn } = require('child_process');
 
 // Start MCP server
@@ -226,7 +226,7 @@ node test/test-mcp.js
 
 ```bash
 # Build Docker image
-cd /Users/mudassir-khan/repo/mcp-a11y
+cd /path/to/a11y-toolkit/mcp
 docker-compose build
 
 # Run with VNC for visual testing
@@ -421,7 +421,7 @@ node dist/index.js
 cat ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
 # Check server path is correct
-ls -la /Users/mudassir-khan/repo/mcp-a11y/dist/index.js
+ls -la /path/to/a11y-toolkit/mcp/dist/index.js
 
 # Restart Claude Desktop completely
 killall Claude && open -a Claude

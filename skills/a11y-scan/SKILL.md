@@ -1861,7 +1861,6 @@ Workflow complete ONLY when ALL items checked.
 - ✅ `agents/a11y-audit-guidelines.md` agent defined
 - ✅ `agents/a11y-fix-rules.md` agent defined
 - ✅ Atlassian MCP server configured (for JIRA integration)
-- ⚠️ `/play-login` command (optional, for auth)
 - ⚠️ PLAYWRIGHT_USER and PLAYWRIGHT_PASSWORD in .env (optional, can use command params)
 - ⚠️ JIRA API access (optional, for ticket integration)
 

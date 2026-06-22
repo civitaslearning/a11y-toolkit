@@ -107,7 +107,6 @@ Uses axe-core + targeted testing to efficiently gather evidence for all 56 WCAG 
 **Benefits:**
 - ⚡ **60-70% faster** (5-10 min vs 15-25 min)
 - 💰 **Lower token cost** (30-50k vs 100-150k)
-- 📊 **85-95% WCAG coverage** (vs 95-97%)
 - 🎯 **Strategic tool selection** based on page content
 - ✅ **Excellent VPAT quality** with honest scope disclosure
 
@@ -117,10 +116,10 @@ Uses axe-core + targeted testing to efficiently gather evidence for all 56 WCAG 
 - Continuous integration
 - Initial assessments
 - Time/token constrained scenarios
-- When 85-95% accuracy is sufficient
+- When a faster, targeted scan is sufficient
 
 **How It Works:**
-1. **Foundation:** axe-core + run_wcag_21_aa_tests (covers 85-90% of WCAG)
+1. **Foundation:** axe-core + run_wcag_21_aa_tests
 2. **Strategic Adds:** Selectively run additional tools based on:
    - Page has forms → add form testing
    - Many interactive elements → add keyboard testing
@@ -128,14 +127,13 @@ Uses axe-core + targeted testing to efficiently gather evidence for all 56 WCAG 
    - Headings present → add heading structure
 3. **Total:** 5-12 tools (vs 27-30 comprehensive)
 
-### **Comprehensive Approach** (Maximum accuracy)
+### **Comprehensive Approach** (Full tool execution)
 
 **Philosophy:** Systematic execution of all available testing tools
 
 Mechanically runs 27-30 tools following `agents/a11y-audit-guidelines.md` checklist.
 
 **Benefits:**
-- 🎯 **95-97% WCAG coverage** (maximum accuracy)
 - 📋 **All tools executed** (no gaps)
 - 🏛️ **Best for legal/compliance** reviews
 - ✅ **Maximum confidence** in results
@@ -144,7 +142,7 @@ Mechanically runs 27-30 tools following `agents/a11y-audit-guidelines.md` checkl
 - Legal compliance reviews
 - Pre-litigation assessments
 - Government procurement (Section 508)
-- When maximum accuracy required
+- When full tool coverage is required
 - Time/resources not constrained
 
 **How It Works:**
@@ -517,10 +515,8 @@ Type 'aggregate' to begin
 📄 VPAT GENERATION PHASE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📖 READING DOCUMENTATION:
-   Lines 2566-3335 of a11y-vpat-audit.md
-   Template structure: Lines 2669-2872
-   CSS templates: Lines 2889-3180
-   PDF generation: Lines 3240-3335
+   VPAT generation runs the /a11y-vpat-report skill (a11y-vpat-report/SKILL.md)
+   — VPAT 2.5 template structure, vpat-styles CSS, and PDF (pandoc/WeasyPrint) generation
 
 WILL FOLLOW EXACT TEMPLATE:
 ✓ Title: "Voluntary Product Accessibility Template® (VPAT®)"
@@ -1637,7 +1633,7 @@ HALTED - Awaiting user permission to continue correctly.
 
 Display Phase 2 entry gate with:
 - Documentation section read ("PHASE 2: SCAN - EXECUTABLE COMMAND SEQUENCE")
-- Approach: Smart Scanning (5-12 tools/page, 85-95% WCAG coverage)
+- Approach: Smart Scanning (5-12 tools/page)
 - Pages to scan: {WORKFLOW_STATE.total_pages}
 - Command summary: Per-page loop (14 commands) - Setup, Browser Check, Navigate, Exclusions, Foundation Scan (2-3 tools), Context Capture (3 tools), Gap Analysis (0-7 tools), Tool Validation, Reports, Summary
 - After all pages: Multi-page summary, JIRA update if applicable
@@ -2172,8 +2168,6 @@ json_report = {
     "audit_duration_seconds": Math.floor((Date.now() - scan_start_time) / 1000),
     "wcag_version": "{wcag_version}",
     "conformance_target": "AA",
-    "accuracy": "85-95%",
-    "coverage": "88-90%",
     "scan_approach": "Smart",
     "exclusions_enabled": WORKFLOW_STATE.exclusions_enabled,
     "exclusions_count": WORKFLOW_STATE.exclusions.length,
@@ -2415,7 +2409,7 @@ IF WORKFLOW_STATE.has_jira_ticket === true:
   Per-Page Breakdown:
   [List each page with issue count]
 
-  Scan Approach: Smart (5-12 tools per page, 85-95% coverage)
+  Scan Approach: Smart (5-12 tools per page)
   Next: Generating VPAT 2.5 compliance report
   Reports location: {WORKFLOW_STATE.report_directory}
   """
@@ -4313,18 +4307,16 @@ The report workflow will:
 
 **Smart Approach (DEFAULT):**
 - Uses `agents/a11y-audit-guidelines.md` as **reference**, not checklist
-- Foundation: axe-core + run_wcag_21_aa_tests + run_wcag_22_aa_tests (WCAG 2.2 mode) (covers 85-90% WCAG)
+- Foundation: axe-core + run_wcag_21_aa_tests + run_wcag_22_aa_tests (WCAG 2.2 mode)
 - Strategic tool selection based on page content analysis
 - 5-12 tools per page (vs 27-30 comprehensive)
 - 60-70% faster execution
-- 85-95% WCAG coverage
 - **Transparent testing scope** documented in scan reports
 - Best for: QA, development feedback, sprint testing, CI/CD
 
 **Comprehensive Approach:**
 - Systematic execution of all 27-30 tools per guidelines
 - Mechanical checklist approach
-- 95-97% WCAG coverage (maximum accuracy)
 - 15-25 minutes per page
 - Best for: Legal compliance, Section 508, pre-litigation, maximum confidence
 
