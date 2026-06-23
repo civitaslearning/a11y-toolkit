@@ -452,7 +452,7 @@ Update state after EVERY action:
 - Changes: Track all file modifications
 
 ### Authentication Rules
-- Use accessibility MCP tools ONLY (never `/play-login`)
+- Use accessibility MCP tools ONLY (no external login commands)
 - Single browser context for entire workflow
 - Manual login: open blank browser, user navigates/logs in, verify URL after
 - Never close browser between phases
@@ -1861,7 +1861,6 @@ Workflow complete ONLY when ALL items checked.
 - ✅ `agents/a11y-audit-guidelines.md` agent defined
 - ✅ `agents/a11y-fix-rules.md` agent defined
 - ✅ Atlassian MCP server configured (for JIRA integration)
-- ⚠️ `/play-login` command (optional, for auth)
 - ⚠️ PLAYWRIGHT_USER and PLAYWRIGHT_PASSWORD in .env (optional, can use command params)
 - ⚠️ JIRA API access (optional, for ticket integration)
 

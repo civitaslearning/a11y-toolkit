@@ -246,7 +246,7 @@ The Phase Gate System prevents workflow deviations by requiring:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📖 DOCUMENTATION READ:
-   File: /Users/.../a11y-vpat-audit.md
+   File: agents/a11y-audit-guidelines.md
    Lines: {start_line}-{end_line}
    Section: "{exact_section_heading}"
 
@@ -534,10 +534,8 @@ Type 'aggregate' to begin
 📄 VPAT GENERATION PHASE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📖 READING DOCUMENTATION:
-   Lines 2566-3335 of a11y-vpat-audit.md
-   Template structure: Lines 2669-2872
-   CSS templates: Lines 2889-3180
-   PDF generation: Lines 3240-3335
+   VPAT generation steps in this skill (a11y-vpat-report/SKILL.md)
+   — VPAT 2.5 template structure, vpat-styles CSS, and PDF (pandoc/WeasyPrint) generation
 
 WILL FOLLOW EXACT TEMPLATE:
 ✓ Title: "Voluntary Product Accessibility Template® (VPAT®)"
@@ -663,11 +661,11 @@ Type 'verify' to run checks, or 'skip' to proceed
 
 **Layer 1: Dynamic Tool Extraction (Phase 2, Step e - Option 3):**
    - **Single Source of Truth:** Read `.claude/skills/a11y-vpat-report/agents/a11y-audit-guidelines.md`
-   - Extract complete tool inventory from "MCP Tool Inventory (41 Tools)" section
+   - Extract complete tool inventory from the "Tool-to-WCAG Mapping" section (all testing tools mapped to WCAG criteria; exclude browser-control tools)
    - Parse all scanning tools (excluding browser control tools)
    - Store as `scanning_tools_inventory` array (27-30 scanning tools: 27 always + 0-3 conditional)
    - **Benefit:** No hardcoded duplication, guidelines doc is authoritative source
-   - **Implementation:** Read lines 71-135 of guidelines, extract tool names, identify conditional tools
+   - **Implementation:** Read the "Tool-to-WCAG Mapping" section, extract tool names, identify conditional tools
 
 **Layer 2: TodoWrite Per-Tool Tracking (Phase 2, Step e - Option 2):**
    - Create individual TodoWrite item for EACH tool in `scanning_tools_inventory`
@@ -1342,7 +1340,7 @@ WORKFLOW_STATE = {
      (e.g., "NVDA 2024.1, JAWS 2024, VoiceOver" or "None")
 
    Evaluation Methods Used:
-   ☑ Automated Testing (41 specialized tools) - YES (always)
+   ☑ Automated Testing (45 specialized tools) - YES (always)
    ☑ Manual Testing (keyboard, interactions) - YES (always)
    ☐ Screen Reader Testing - Was this performed? (yes/no): _____
    ☐ User Testing with Disabilities - Was this performed? (yes/no): _____
@@ -1399,7 +1397,7 @@ WORKFLOW_STATE = {
    **Standards Applied:** WCAG {wcag_version} Level A & AA, Section 508, EN 301 549
 
    **Testing Tools:**
-   - {list all 41 MCP tools used}
+   - {list all 45 MCP tools used}
    - {list any manual testing tools}
    - {list screen readers if tested}
 
@@ -2279,8 +2277,7 @@ a[href^="http"]::after {
 ### Guidelines Reference
 - `agents/a11y-audit-guidelines.md` (agents/a11y-audit-guidelines.md) provides comprehensive testing rules
   - 10-phase workflow for complete WCAG coverage
-  - Defines all 41 MCP accessibility tools to use
-  - Industry-leading accuracy (95-97%)
+  - Defines all 45 MCP accessibility tools to use
   - Screen reader compatibility testing included
   - Applied directly in Phase 2, Step 2e (MCP tools called directly, not via agent)
 
@@ -2308,16 +2305,16 @@ a[href^="http"]::after {
 
 ```bash
 # Single page scan with JIRA
-/a11y-vpat-audit http://localhost:3000/myapp/dashboard A11Y-500
+/a11y-vpat-scan http://localhost:3000/myapp/dashboard A11Y-500
 
 # Single page scan without JIRA
-/a11y-vpat-audit http://localhost:3000/myapp/dashboard
+/a11y-vpat-scan http://localhost:3000/myapp/dashboard
 
 # Multi-page scan with JIRA and explicit credentials
-/a11y-vpat-audit pages-config.json A11Y-500 john@example.com SecurePass123
+/a11y-vpat-scan pages-config.json A11Y-500 john@example.com SecurePass123
 
 # Multi-page scan without JIRA (uses .env credentials)
-/a11y-vpat-audit pages-config.json
+/a11y-vpat-scan pages-config.json
 
 # Expected flow:
 # Phase 1: Load config → Authenticate once → Setup directories → proceed
@@ -2378,18 +2375,16 @@ a[href^="http"]::after {
 
 **Smart Approach (DEFAULT):**
 - Uses `agents/a11y-audit-guidelines.md` as **reference**, not checklist
-- Foundation: axe-core + run_wcag_21_aa_tests (covers 85-90% WCAG)
+- Foundation: axe-core + run_wcag_21_aa_tests
 - Strategic tool selection based on page content analysis
 - 5-12 tools per page (vs 27-30 comprehensive)
 - 60-70% faster execution
-- 85-95% WCAG coverage
 - **Transparent testing scope** documented in VPAT report
 - Best for: QA, development feedback, sprint testing, CI/CD
 
 **Comprehensive Approach:**
 - Systematic execution of all 27-30 tools per guidelines
 - Mechanical checklist approach
-- 95-97% WCAG coverage (maximum accuracy)
 - 15-25 minutes per page
 - Best for: Legal compliance, Section 508, pre-litigation, maximum confidence
 
