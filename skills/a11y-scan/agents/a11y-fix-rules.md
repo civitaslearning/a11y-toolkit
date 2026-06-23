@@ -138,7 +138,7 @@ Issue: [Clear description of accessibility violation]
 Component: [Full file path]
 WCAG: [Guideline] - [Name] (Level [A/AA/AAA])
 Severity: [Critical/High/Moderate]
-Optimization: [✅ VERIFIED / 🔄 OPTIMIZED]
+Self-Review: [✅ VERIFIED / 🔄 REVISED]
 
 Component Usage:
 This component is used in [N] locations:
@@ -157,8 +157,8 @@ Proposed Fix:
 [Show the fixed code]
 ```
 
-Optimization Notes:
-[If 🔄 OPTIMIZED, explain what the self-review recommended]
+Self-Review Notes:
+[If 🔄 REVISED, explain what the self-review recommended]
 Example: "Originally proposed aria-label, but the self-review recommended
 explicit <label> for better programmatic association."
 
@@ -611,12 +611,12 @@ Questions:
 
 3. **Process feedback:**
    - ✅ VERIFIED: Proceed with original fix
-   - 🔄 OPTIMIZED: Update fix per recommendations
+   - 🔄 REVISED: Update fix per recommendations
    - ⚠️ NEEDS REVISION: Rethink approach entirely
 
 4. **Document result:**
 ```
-Optimization: [✅ VERIFIED / 🔄 OPTIMIZED]
+Self-Review: [✅ VERIFIED / 🔄 REVISED]
 [If optimized, explain what changed and why]
 ```
 
@@ -747,7 +747,7 @@ ISSUE: [Brief description]
 WCAG: [Guideline] - [Name] (Level [A/AA/AAA])
 SEVERITY: [Critical/High/Moderate/Low]
 SCOPE: [Page-specific / Shared / Critical]
-OPTIMIZATION: [✅ VERIFIED / 🔄 OPTIMIZED]
+SELF-REVIEW: [✅ VERIFIED / 🔄 REVISED]
 
 FIX: [Brief description of what was changed]
 LINES CHANGED: [Line numbers]
@@ -848,7 +848,7 @@ Then ask user: "This component appears in [N] files. Shall I classify it as shar
 A good fix:
 - ✅ Addresses the reported issue completely
 - ✅ Has been self-reviewed against these rules
-- ✅ Incorporates optimization recommendations
+- ✅ Incorporates self-review recommendations
 - ✅ Makes minimal code changes
 - ✅ Uses `t()` for aria-label if react-i18next is available
 - ✅ Preserves props when using `{...props}` spread (React)
@@ -861,7 +861,7 @@ A good fix:
 
 A bad fix:
 - ❌ Skips the self-review
-- ❌ Ignores optimization recommendations
+- ❌ Ignores self-review recommendations
 - ❌ Modifies unrelated code
 - ❌ Introduces new accessibility issues
 - ❌ Hardcodes English strings when i18n is available
@@ -878,7 +878,7 @@ A bad fix:
 A fix session is successful when:
 - All reported issues are fixed or explicitly deferred
 - Every fix was self-reviewed against these rules
-- All optimization improvements were incorporated
+- All self-review improvements were incorporated
 - No regressions were introduced
 - No out-of-scope changes were made
 - All changes are documented

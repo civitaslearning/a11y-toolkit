@@ -92,7 +92,7 @@ The accessibility skills ship in this repo under `/skills` and are installed via
 In Claude Code, test a single page:
 
 ```
-/audit_accessibility http://localhost:8080/dashboard
+/a11y-scan http://localhost:8080/dashboard
 ```
 
 Or create a batch testing script for multiple pages:
@@ -110,7 +110,7 @@ PAGES=(
 
 for PAGE in "${PAGES[@]}"; do
   echo "Testing $PAGE..."
-  claude -p "/audit_accessibility $PAGE"
+  claude -p "/a11y-scan $PAGE"
   echo "---"
 done
 
@@ -370,22 +370,14 @@ This repository includes a pre-configured slash command that automates the entir
 
 ### Installation
 
-Copy the command file to your project:
-
-```bash
-# Create .claude/commands directory in your project
-mkdir -p .claude/commands
-
-# Copy the audit command
-cp /path/to/repo/mcp/.claude/commands/audit_accessibility.md .claude/commands/
-```
+The `/a11y-scan` skill ships in this repo under `/skills` and is installed by the repo's install script — no manual copy needed.
 
 ### Usage
 
 In Claude Code, simply run:
 
 ```
-/audit_accessibility https://example.com
+/a11y-scan https://example.com
 ```
 
 The command will automatically:
@@ -421,7 +413,7 @@ URLS=(
 
 for URL in "${URLS[@]}"; do
   echo "Auditing accessibility for $URL..."
-  claude -p --dangerously-skip-permissions "/audit_accessibility $URL"
+  claude -p --dangerously-skip-permissions "/a11y-scan $URL"
 done
 
 echo "All accessibility audits completed."

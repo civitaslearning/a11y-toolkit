@@ -391,7 +391,7 @@ For maximum efficiency, use the comprehensive testing tools first:
 - Time: 30-60 seconds
 - Includes: 1.3.5, 2.4.4, 2.5.3, 3.3.1/2, 4.1.3, 3.2.4, 4.1.2
 
-**run_wcag_22_aa_tests** *(WCAG 2.2 mode only)* - Tests all 6 new WCAG 2.2 Level A+AA criteria
+**run_wcag_22_aa_tests** *(WCAG 2.2 mode only)* - Tests the 6 WCAG 2.2 A+AA criteria this suite covers
 - Coverage: All WCAG 2.2-specific criteria (2.4.11, 2.5.7, 2.5.8, 3.2.6, 3.3.7, 3.3.8)
 - Time: 20-40 seconds
 - Accepts optional `urls` parameter for cross-page checks (3.2.6 Consistent Help)
@@ -825,7 +825,7 @@ Classify each issue using this rubric:
 
 ### Core Scanning Tools (ALL REQUIRED - Phase 1)
 - ✅ run_wcag_21_aa_tests - WCAG 2.1 Level AA foundation (44-45 criteria)
-- ✅ run_wcag_22_aa_tests - WCAG 2.2 new criteria (7 criteria) *(WCAG 2.2 mode only)*
+- ✅ run_wcag_22_aa_tests - WCAG 2.2 new criteria (6 criteria) *(WCAG 2.2 mode only)*
 - ✅ analyze_accessibility - axe-core automated testing
 - ✅ Custom JavaScript inspection - Framework-specific patterns
 
@@ -857,7 +857,7 @@ Classify each issue using this rubric:
 **Conformance Status**: [Pass / Fail] Level AA
 
 **Testing Metrics:**
-- WCAG Level AA Coverage: WCAG 2.2 = 56 criteria (50 via axe-core + run_wcag_21_aa_tests + 7 via run_wcag_22_aa_tests - 1 deprecated); WCAG 2.1 = 50 criteria
+- WCAG Level AA Coverage: WCAG 2.2 = 56 criteria (50 via axe-core + run_wcag_21_aa_tests + 6 via run_wcag_22_aa_tests); WCAG 2.1 = 50 criteria
 - Performance: 40-60% faster with intelligent caching
 - Tool Count: 45
 

@@ -452,7 +452,7 @@ Update state after EVERY action:
 - Changes: Track all file modifications
 
 ### Authentication Rules
-- Use accessibility MCP tools ONLY (never `/play-login`)
+- Use accessibility MCP tools ONLY (no external login commands)
 - Single browser context for entire workflow
 - Manual login: open blank browser, user navigates/logs in, verify URL after
 - Never close browser between phases

@@ -661,11 +661,11 @@ Type 'verify' to run checks, or 'skip' to proceed
 
 **Layer 1: Dynamic Tool Extraction (Phase 2, Step e - Option 3):**
    - **Single Source of Truth:** Read `.claude/skills/a11y-vpat-report/agents/a11y-audit-guidelines.md`
-   - Extract complete tool inventory from "MCP Tool Inventory (45 Tools)" section
+   - Extract complete tool inventory from the "Tool-to-WCAG Mapping" section (all testing tools mapped to WCAG criteria; exclude browser-control tools)
    - Parse all scanning tools (excluding browser control tools)
    - Store as `scanning_tools_inventory` array (27-30 scanning tools: 27 always + 0-3 conditional)
    - **Benefit:** No hardcoded duplication, guidelines doc is authoritative source
-   - **Implementation:** Read lines 71-135 of guidelines, extract tool names, identify conditional tools
+   - **Implementation:** Read the "Tool-to-WCAG Mapping" section, extract tool names, identify conditional tools
 
 **Layer 2: TodoWrite Per-Tool Tracking (Phase 2, Step e - Option 2):**
    - Create individual TodoWrite item for EACH tool in `scanning_tools_inventory`
